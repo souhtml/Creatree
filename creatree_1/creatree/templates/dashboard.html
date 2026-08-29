@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – Creatree{% endblock %}
+{% block body_class %}page-dashboard{% endblock %}
+
+{% block content %}
+<nav class="topbar">
+  <div class="wordmark">creatree</div>
+  <div class="topbar__actions">
+    <a href="{{ url_for('profile', username=user.username) }}" class="btn btn--ghost" target="_blank">View my page ↗</a>
+    <a href="{{ url_for('logout') }}" class="btn btn--ghost">Log out</a>
+  </div>
+</nav>
+
+<div class="dash">
+  <section class="dash__panel">
+    <h2>Your profile</h2>
+    <form method="POST" action="{{ url_for('update_profile') }}" class="form">
+      <label class="field">
+        <span>Avatar URL</span>
+        <input type="url" name="avatar_url" value="{{ user.avatar_url or '' }}" placeholder="https://example.com/photo.jpg">
+      </label>
+      <label class="field">
+        <span>Bio</span>
+        <textarea name="bio" maxlength="200" rows="3" placeholder="A line about you or your work">{{ user.bio or '' }}</textarea>
+      </label>
+      <button type="submit" class="btn btn--solid">Save profile</button>
+    </form>
+
+    <div class="url-pill">
+      <span class="mono">creatree.com/{{ user.username }}</span>
+    </div>
+
+    <h2 class="dash__panel-title-spaced">Add a branch</h2>
+    <form method="POST" action="{{ url_for('add_link') }}" class="form form--inline">
+      <input type="text" name="title" placeholder="Label, e.g. YouTube" required maxlength="60">
+      <input type="text" name="url" placeholder="https://..." required>
+      <button type="submit" class="btn btn--solid">Add</button>
+    </form>
+  </section>
+
+  <section class="dash__panel dash__panel--links">
+    <h2>Your links <span class="dash__count">{{ user.links|length }}</span></h2>
+
+    {% if user.links %}
+      <ul class="link-manager" id="link-manager">
+        {% for link in user.links %}
+        <li class="link-row" data-id="{{ link.id }}">
+          <span class="drag-handle" title="Drag to reorder">⠿</span>
+          <div class="link-row__info">
+            <strong>{{ link.title }}</strong>
+            <span class="link-row__url">{{ link.url }}</span>
+          </div>
+          <span class="link-row__clicks mono">{{ link.clicks }} click{{ 's' if link.clicks != 1 else '' }}</span>
+          <form method="POST" action="{{ url_for('delete_link', link_id=link.id) }}">
+            <button type="submit" class="icon-btn" title="Delete">✕</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">
+        <p>No branches yet. Add your first link above — it'll show up on your page instantly.</p>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

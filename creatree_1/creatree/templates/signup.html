@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Sign up – Creatree{% endblock %}
+{% block body_class %}page-auth{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <a href="{{ url_for('index') }}" class="wordmark wordmark--auth">creatree</a>
+
+  <div class="auth-card">
+    <h1>Plant your tree</h1>
+    <p class="auth-card__sub">Takes about a minute. Free, no card needed.</p>
+
+    <form method="POST" action="{{ url_for('signup') }}" class="form">
+      <label class="field">
+        <span>Username</span>
+        <div class="field__prefixed">
+          <span>creatree.com/</span>
+          <input type="text" name="username" value="{{ username or request.args.get('u', '') }}" placeholder="yourname" required pattern="[A-Za-z0-9]+" title="Letters and numbers only">
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" value="{{ email or '' }}" placeholder="you@example.com" required>
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" placeholder="At least 6 characters" required minlength="6">
+      </label>
+
+      <button type="submit" class="btn btn--solid btn--block">Create my page</button>
+    </form>
+
+    <p class="auth-card__switch">Already have a tree? <a href="{{ url_for('login') }}">Log in</a></p>
+  </div>
+</div>
+{% endblock %}

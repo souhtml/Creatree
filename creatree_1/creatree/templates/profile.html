@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }} – Creatree{% endblock %}
+{% block body_class %}page-profile{% endblock %}
+
+{% block content %}
+<main class="profile">
+  <div class="profile__trunk" aria-hidden="true"></div>
+
+  <div class="profile__card">
+    {% if user.avatar_url %}
+      <img class="profile__avatar" src="{{ user.avatar_url }}" alt="{{ user.username }}">
+    {% else %}
+      <div class="profile__avatar profile__avatar--placeholder">{{ user.username[0]|upper }}</div>
+    {% endif %}
+
+    <h1 class="profile__name">@{{ user.username }}</h1>
+    {% if user.bio %}<p class="profile__bio">{{ user.bio }}</p>{% endif %}
+
+    <div class="profile__links">
+      {% for link in user.links %}
+        <a class="branch-link" href="{{ url_for('follow_link', link_id=link.id) }}" target="_blank" rel="noopener">
+          <span class="branch-link__stem" aria-hidden="true"></span>
+          {{ link.title }}
+        </a>
+      {% else %}
+        <p class="profile__empty">This tree hasn't grown any branches yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <footer class="profile__footer">
+    <a href="{{ url_for('index') }}" class="mono">made with creatree</a>
+  </footer>
+</main>
+{% endblock %}

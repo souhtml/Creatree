@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+<nav class="topbar">
+  <div class="wordmark">creatree</div>
+  <div class="topbar__actions">
+    <a href="{{ url_for('login') }}" class="btn btn--ghost">Log in</a>
+    <a href="{{ url_for('signup') }}" class="btn btn--solid">Sign up free</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero__copy">
+    <p class="eyebrow">one link, every branch</p>
+    <h1 class="hero__title">All your links,<br>growing from<br>one root.</h1>
+    <p class="hero__sub">
+      Creatree gives you a single page for everything you make and share —
+      Instagram, YouTube, your shop, your site. Plant it once, add branches as you grow.
+    </p>
+    <form class="claim-form" action="{{ url_for('signup') }}" method="get">
+      <span class="claim-form__prefix">creatree.com/</span>
+      <input type="text" name="u" placeholder="yourname" autocomplete="off">
+      <button type="submit" class="btn btn--solid">Claim it</button>
+    </form>
+  </div>
+
+  <div class="hero__art" aria-hidden="true">
+    <svg viewBox="0 0 420 520" class="tree-svg">
+      <path class="branch branch--trunk" d="M210 500 L210 320" />
+      <path class="branch branch--1" d="M210 380 C 150 360, 110 320, 90 260" />
+      <path class="branch branch--2" d="M210 320 C 270 300, 310 260, 330 200" />
+      <path class="branch branch--3" d="M210 260 C 165 235, 140 200, 130 150" />
+      <path class="branch branch--4" d="M210 200 C 250 180, 280 150, 295 100" />
+      <path class="branch branch--5" d="M210 320 L210 200" />
+
+      <g class="leaf-node leaf-node--1">
+        <rect x="20" y="235" width="140" height="46" rx="23" />
+        <text x="90" y="263">instagram</text>
+      </g>
+      <g class="leaf-node leaf-node--2">
+        <rect x="270" y="175" width="140" height="46" rx="23" />
+        <text x="340" y="203">youtube</text>
+      </g>
+      <g class="leaf-node leaf-node--3">
+        <rect x="10" y="125" width="140" height="46" rx="23" />
+        <text x="80" y="153">shop</text>
+      </g>
+      <g class="leaf-node leaf-node--4">
+        <rect x="255" y="75" width="140" height="46" rx="23" />
+        <text x="325" y="103">newsletter</text>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<section class="strip">
+  <div class="strip__item">
+    <span class="strip__num">01</span>
+    <h3>Plant your page</h3>
+    <p>Pick a username — that's your permanent address. <span class="mono">creatree.com/you</span></p>
+  </div>
+  <div class="strip__item">
+    <span class="strip__num">02</span>
+    <h3>Add your branches</h3>
+    <p>Drop in every link that matters. Reorder them however your audience should find them.</p>
+  </div>
+  <div class="strip__item">
+    <span class="strip__num">03</span>
+    <h3>Watch it grow</h3>
+    <p>Every click is counted, so you always know which branch people actually follow.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Free, forever, for everyone. No card required.</p>
+  <a href="{{ url_for('signup') }}" class="btn btn--solid">Start your tree</a>
+</footer>
+{% endblock %}
